@@ -8,9 +8,10 @@ import {
   StyleSheet,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useSwap } from "../hooks/useSwap";
+import { useSwap } from "../../src/hooks/useSwap";
+ 
 
-export function SwapScreen() {
+export  default function SwapScreen() {
   const {
     fromAmount,
     setFromAmount,

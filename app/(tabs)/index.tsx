@@ -1,3 +1,5 @@
+import { useWallet } from "@/hooks/useWallet";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
   View,
@@ -10,7 +12,6 @@ import {
   StyleSheet,
   Linking,
 } from "react-native";
-import { useWallet } from "../hooks/useWallet";
 
 const short = (s: string, n = 4) => `${s.slice(0, n)}...${s.slice(-n)}`;
 
@@ -22,7 +23,9 @@ const timeAgo = (ts: number) => {
   return `${Math.floor(sec / 86400)}d ago`;
 };
 
-export function WalletScreen() {
+export default function WalletScreen() {
+  const router = useRouter();
+
   const {
     address,
     setAddress,
@@ -88,10 +91,15 @@ export function WalletScreen() {
             keyExtractor={(t) => t.mint}
             scrollEnabled={false}
             renderItem={({ item }) => (
-              <View style={s.row}>
+              <TouchableOpacity
+                style={s.row}
+                onPress={() => {
+                  router.push(`/token/${item.mint}`);
+                }}
+              >
                 <Text style={s.mint}>{short(item.mint, 6)}</Text>
                 <Text style={s.amount}>{item.amount}</Text>
-              </View>
+              </TouchableOpacity>
             )}
           />
         </>
